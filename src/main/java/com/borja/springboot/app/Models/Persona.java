@@ -2,6 +2,7 @@ package com.borja.springboot.app.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode (of = "dni") // Método EqualsyHashCode basado en DNI únicamente.
 public class Persona {
 
+    @Id
     @Column
     private String dni;
 
