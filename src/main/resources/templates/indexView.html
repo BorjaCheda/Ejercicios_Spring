@@ -23,7 +23,10 @@
         <a class="nav-link" th:href="@{/contacta}">Contacta</a>
     </li>
 </ul>
-
-<p class="text-center">ESTE ES EL INICIO DE LA PAGINA</p>
+<p class="text-center">
+<span  th:if="${nombre != ''}">Bienvenido a tu web: <span th:text="${nombre}"></span></span>
+<span th:unless="${nombre != ''}">Bienvenido XXX</span>
+</p>
+<p class="text-center">La fecha de este momento es: <span th:text="${fecha_hoy}">*</span></p>
 </body>
 </html>

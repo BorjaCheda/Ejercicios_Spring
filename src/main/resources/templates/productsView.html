@@ -11,7 +11,7 @@
 <body class="container bg-warning text-primary-emphasis">
 <ul class="nav">
     <li class="nav-item">
-        <a class="nav-link" aria-current="page" th:href="@{/index}">Inicio</a>
+        <a class="nav-link" aria-current="page" th:href="@{/home}">Inicio</a>
     </li>
     <li class="nav-item">
         <a class="nav-link " th:href="@{/quienes-somos}">Quienes Sómos</a>
@@ -24,6 +24,23 @@
     </li>
 </ul>
 
-<p class="text-center">Esta es la parte de Productos</p>
+<p class="text-center">Los Productos que presentamos son los siguientes:</p>
+
+<table class="table table-striped col-12">
+    <thead>
+    <tr>
+        <th scope="col">Productos</th>
+        <th scope="col">Imagen Producto</th>
+
+    </tr>
+    </thead>
+
+    <tr th:each="p : ${listaproductos}">
+        <td scope="col" th:text="${p}"></td>
+        <td scope="col"><img th:src="@{/imagen.jpg}" width="25px" height="25px"></td>
+    </tr>
+</table>
+
+
 </body>
 </html>
