@@ -2,6 +2,7 @@ package com.borja.springboot.app.Controllers;
 
 import com.borja.springboot.app.Models.Persona;
 import com.borja.springboot.app.Repositories.PersonaRepository;
+import com.borja.springboot.app.Services.PersonaService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,9 @@ import java.util.List;
 @Controller // Anotación para indicar nuestro controlador
 public class PersonaController {
 
-    @Autowired // Inyectamos el repositorio de personas
-    PersonaRepository personaRepository;
+    // Inyectamos el repositorio de personas
+    @Autowired
+    PersonaService personaService;
 
     @GetMapping("/nuevaPersona") // Método para añadir nuevas personas
     public String nuevaPersona (Model model){
@@ -27,14 +29,14 @@ public class PersonaController {
 
     @PostMapping("/postForm") //Método para guardar esas personas en el repositorio y vuelve a la página para seguir añadiendo personas.
     public String postForm(@ModelAttribute("persona") Persona persona){
-        personaRepository.save(persona);
+        personaService.save(persona);
 
         return "redirect:/nuevaPersona";
     }
     @GetMapping("/listaPersonas")
     public String listaPersonas(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
+        List<Persona> listaPersonas = personaService.findAll();
         model.addAttribute("listaPersonas", listaPersonas);
 
         return "lista_personas.html";
@@ -43,22 +45,17 @@ public class PersonaController {
     @GetMapping("/edadMayor")
     public String edadMayor(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
-        int edad_mayor = 0;
+        Persona mayorPersona = personaService.findMayorPersona();
 
-        for (Persona p: listaPersonas){
-            if (p.getEdad() > edad_mayor){
-                edad_mayor = p.getEdad();
-            }
-            model.addAttribute("edad", edad_mayor);
-        }
+        model.addAttribute("edad", mayorPersona.getEdad());
+
         return "edadMayor.html";
     }
 
     @GetMapping("/edadMedia")
     public String edadMedia(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
+        List<Persona> listaPersonas = personaService.findAll();
         int suma_edades = 0;
 
         for (Persona p: listaPersonas){
@@ -71,7 +68,7 @@ public class PersonaController {
     @GetMapping("/nombreMayor")
     public String nombreMayor(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
+        List<Persona> listaPersonas = personaService.findAll();
         int edad_mayor = 0;
         String nombre ="";
 
@@ -88,7 +85,7 @@ public class PersonaController {
     @GetMapping("/mayoresEdad")
     public String mayoresEdad(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
+        List<Persona> listaPersonas = personaService.findAll();
         ArrayList<Persona> mayoresEdad = new ArrayList<>();
 
         for (Persona p: listaPersonas){
@@ -103,7 +100,7 @@ public class PersonaController {
     @GetMapping("/mayorigualmedia")
     public String mayorigualmedia(@ModelAttribute("persona") Persona persona, Model model){
 
-        List<Persona> listaPersonas = personaRepository.findAll();
+        List<Persona> listaPersonas = personaService.findAll();
         ArrayList<Persona> mayoresigualmedia = new ArrayList<>();
         int suma_edades = 0;
 
