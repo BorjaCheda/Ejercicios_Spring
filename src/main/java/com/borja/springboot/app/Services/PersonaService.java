@@ -20,6 +20,14 @@ public class PersonaService {
        return personaRepository.findAll();
     }
 
+
+    /**
+     *
+     * @return Persona
+     *
+     * Esta clase se encarga de devolver la mayor de las personas en edad. Calculo sobre Servicio
+     *
+     */
     public Persona findMayorPersona(){
         List<Persona> listaPersonas = personaRepository.findAll();
         int edad_mayor = 0;

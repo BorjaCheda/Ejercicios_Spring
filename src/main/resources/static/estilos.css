@@ -1,11 +1,11 @@
 .fondo_rojo {
-    background-color: pink;
+    background-color: pink!important;
     color:red;
     font-weight: bold;
 }
 
 .fondo_verde {
-    background-color: greenyellow;
+    background-color: greenyellow!important;
     color:green;
     font-weight: bold;
 }

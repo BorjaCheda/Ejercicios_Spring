@@ -14,6 +14,7 @@ import java.util.Random;
 public class RandomController {
     LinkedList<Integer> numeros_aleatorios = new LinkedList<>();
 
+
     @GetMapping("/lista")
     public String numerosAleatorios(Model model){
 
@@ -26,6 +27,7 @@ public class RandomController {
     public String nuevoNumero (Model model){
 
         int numero_aleatorio = (int)((Math.random()*100) + 1);
+
 
         numeros_aleatorios.add(numero_aleatorio);
 
