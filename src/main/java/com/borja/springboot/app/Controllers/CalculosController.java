@@ -26,7 +26,7 @@ public class CalculosController {
     public String numberPrimo(@RequestParam(required=false,defaultValue="X") String numero, Model model ){
 
         if (numero.equalsIgnoreCase("X")) {
-            return "error.html";
+            return "redirect:/calculos/error";
         } else {
             String resultado = numerosService.isPrimo(numero);
 
@@ -75,5 +75,10 @@ public class CalculosController {
 
         return "divisores.html";
 
+    }
+
+    @GetMapping("/error")
+    public String error(){
+        return "error.html";
     }
 }
