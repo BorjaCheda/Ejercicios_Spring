@@ -1,6 +1,7 @@
 package com.borja.springboot.app.Controllers;
 
 import com.borja.springboot.app.Services.FechasService;
+import com.borja.springboot.app.Services.FechasServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FechasController {
 
     @Autowired /* Inyectamos el Servicio de Fechas */
-    FechasService fechasService;
+            FechasServiceImpl fechasService;
     @GetMapping("/")
     public String Index (Model model){
 

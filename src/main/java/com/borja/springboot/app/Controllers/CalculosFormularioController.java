@@ -1,83 +1,61 @@
 package com.borja.springboot.app.Controllers;
 
+import com.borja.springboot.app.Models.FormInfo;
+import com.borja.springboot.app.Models.Persona_Formulario;
 import com.borja.springboot.app.Services.CalculosFormularioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @Controller
-@RequestMapping("/calculos")
+@RequestMapping("/calculosFormulario")
 public class CalculosFormularioController {
 
     @Autowired /* Inyectamos el Servicio */
             CalculosFormularioServiceImpl numerosService;
-    @GetMapping ("/index")
-    public String insertNumber(){
-        return "index.html";
-    }
-    @GetMapping("/primo")
-    public String numberPrimo(@RequestParam(required=false,defaultValue="X") String numero, Model model ){
 
-        if (numero.equalsIgnoreCase("X")) {
-            return "redirect:/calculos/error";
-        } else {
-            String resultado = numerosService.isPrimo(numero);
-
-            model.addAttribute("numero", numero);
-            model.addAttribute("resultado", resultado);
-
-            return "primo.html";
-        }
+    @GetMapping("/")
+    public String chooseOption() {
+        return "inicioCalculosFechas.html";
     }
 
-    @GetMapping("/hipotenusa/{x}/{y}")
-    public String hipotenusa(@PathVariable Integer x, @PathVariable Integer y, Model model ){
-
-        Double hipotenusa = numerosService.calculoHipotenusa(x, y);
-
-        if (hipotenusa == 0){
-            return "error.html";
-        } else {
-            model.addAttribute("x", x);
-            model.addAttribute("y", y);
-            model.addAttribute("hipotenusa", hipotenusa);
-            return "hipotenusa.html";
-        }
+    @GetMapping("/myForm")
+    public String getForm(Model model){
+        model.addAttribute("formInfo", new FormInfo());
+        return "formBaseNumeros.html";
     }
 
-    @GetMapping("/sinRepetidos/{x}")
-    public String sinRepetidos(@PathVariable Integer x, Model model ){
+    @PostMapping("/postFormPrimo")
+    public String postFormPrimo(@ModelAttribute("number") String number, Model model) {
 
-        Set<Integer> numerosUnicos = numerosService.numerosSinRepetidos(x);
-
-        if (numerosUnicos.isEmpty()){
-            return "error.html";
-        } else {
-            model.addAttribute("numerosUnicos", numerosUnicos);
-            return "sinRepetidos.html";
-        }
+        numerosService.isPrimo(number);
+        model.addAttribute("resultado", numerosService.isPrimo(number));
+        return "primo.html";
     }
 
-    @GetMapping("/divisores/{x}")
-    public String divisores(@PathVariable Integer x, Model model ){
+    @PostMapping("/postFormHipotenusa")
+    public String postFormHipotenusa(Integer cateto1, Integer cateto2, Model model) {
 
-        Set<Integer> divisores = numerosService.divisores(x);
+        Double hipotenusa = numerosService.calculoHipotenusa(cateto1, cateto2);
+        model.addAttribute("x", cateto1);
+        model.addAttribute("y", cateto2);
+        model.addAttribute("hipotenusa", hipotenusa);
+        return "hipotenusa.html";
+    }
 
-        model.addAttribute("x", x);
+    @PostMapping("/postFormDivisores")
+    public String postFormDivisores(Integer number, Model model) {
+
+        Set<Integer> divisores = numerosService.divisores(number);
+
+        model.addAttribute("x", number);
         model.addAttribute("divisores", divisores);
 
         return "divisores.html";
 
     }
-
-    @GetMapping("/error")
-    public String error(){
-        return "error.html";
-    }
 }
+

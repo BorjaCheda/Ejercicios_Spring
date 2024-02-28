@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/fechas")
+@RequestMapping("/fechasFormulario")
 public class FechasFormularioController {
 
     @Autowired /* Inyectamos el Servicio de Fechas */
-            FechasFormularioServiceImpl fechasService;
+            FechasFormularioServiceImpl fechasFormularioService;
     @GetMapping("/")
     public String Index (Model model){
 
-        model.addAttribute("fecha_hoy", fechasService.obtenerFecha());
-        return "fechas.html";
+        model.addAttribute("fecha_hoy", fechasFormularioService.obtenerFecha());
+        return "inicioCalculosFechas.html";
     }
 
     @GetMapping("/diasTranscurridos")
     public String diasTranscurridos (@RequestParam(required=false,defaultValue="x") String fecha, Model model){
 
         model.addAttribute("fecha", fecha);
-        model.addAttribute("fecha_hoy", fechasService.obtenerFecha());
-        model.addAttribute("dias_transcurridos", fechasService.diasTranscurridos(fecha));
+        model.addAttribute("fecha_hoy", fechasFormularioService.obtenerFecha());
+        model.addAttribute("dias_transcurridos", fechasFormularioService.diasTranscurridos(fecha));
         return "diasTranscurridos.html";
 
     }
@@ -38,8 +38,8 @@ public class FechasFormularioController {
 
         model.addAttribute("fecha1", fecha1);
         model.addAttribute("fecha2", fecha2);
-        model.addAttribute("fecha_hoy", fechasService.obtenerFecha());
-        model.addAttribute("dias_transcurridos_dos_fechas", fechasService.dosFechas(fecha1,fecha2));
+        model.addAttribute("fecha_hoy", fechasFormularioService.obtenerFecha());
+        model.addAttribute("dias_transcurridos_dos_fechas", fechasFormularioService.dosFechas(fecha1,fecha2));
         return "dosFechas.html";
 
     }
@@ -48,7 +48,7 @@ public class FechasFormularioController {
     public String esBisiesto (@PathVariable String fecha1, Model model){
 
         model.addAttribute("fecha1", fecha1);
-        model.addAttribute("resultado", fechasService.esBisiesto(fecha1));
+        model.addAttribute("resultado", fechasFormularioService.esBisiesto(fecha1));
 
         return "bisiesto.html";
 
@@ -59,7 +59,7 @@ public class FechasFormularioController {
         model.addAttribute("año1", año1);
         model.addAttribute("año2", año2);
 
-        model.addAttribute("años", fechasService.añosBisiestos(año1, año2));
+        model.addAttribute("años", fechasFormularioService.añosBisiestos(año1, año2));
 
         return "añosBisiestos.html";
 
