@@ -10,7 +10,10 @@ public class Pais {
     private String capital;
     private int poblacion;
 
-    public Pais(String dato, String dato1, int i) {
+    public Pais(String nombre, String capital, int poblacion) {
+        this.nombre = nombre;
+        this.capital = capital;
+        this.poblacion = poblacion;
     }
 }
 
