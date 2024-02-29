@@ -8,16 +8,15 @@ import lombok.Data;
 
 
 @Data
-@Entity
+
 public class FormInfo {
 
-    @Id
-    @Min(2)
-    @Max(10)
+
+    @Min(value = 2, message = "el valor minimo debe ser 2")
+    @Max(value = 10, message = "el valor maximo debe ser 10")
     private Integer number;
 
-    @NotNull
-    @NotEmpty
+
     @Min(1)
     @Max(100)
     private Integer cateto1;
