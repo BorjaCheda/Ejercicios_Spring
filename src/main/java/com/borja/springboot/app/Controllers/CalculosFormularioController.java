@@ -6,6 +6,7 @@ import com.borja.springboot.app.Services.CalculosFormularioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -19,31 +20,60 @@ public class CalculosFormularioController {
 
     @GetMapping("/")
     public String chooseOption() {
+
         return "inicioCalculosFechas.html";
     }
 
     @GetMapping("/myForm")
-    public String getForm(Model model){
-        model.addAttribute("formInfo", new FormInfo());
+    public String getForm(FormInfo formInfo){
+
         return "formBaseNumeros.html";
     }
 
-    @PostMapping("/postFormPrimo")
-    public String postFormPrimo(@ModelAttribute("number") String number, Model model) {
+//     @PostMapping("/postFormPrimo")
+//    public String postFormPrimo(String number, Model model) {
+//
+//            numerosService.isPrimo(number);
+//            model.addAttribute("numero", number);
+//            model.addAttribute("resultado", numerosService.isPrimo(number));
+//            return "primo.html";
+//
+//    }
 
-        numerosService.isPrimo(number);
-        model.addAttribute("resultado", numerosService.isPrimo(number));
-        return "primo.html";
+   @PostMapping("/postFormPrimo")
+    public String postFormPrimo(@Valid FormInfo formInfo, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            return "errorFormulario.html";
+        } else{
+            numerosService.isPrimo(formInfo.getNumber().toString());
+            model.addAttribute("numero", formInfo.getNumber());
+            model.addAttribute("resultado", numerosService.isPrimo(formInfo.getNumber().toString()));
+            return "primo.html";
+        }
     }
 
-    @PostMapping("/postFormHipotenusa")
-    public String postFormHipotenusa(Integer cateto1, Integer cateto2, Model model) {
+    /*@PostMapping("/postFormHipotenusa")
+    public String postFormHipotenusa(@Valid Integer cateto1, @Valid Integer cateto2, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            return "errorFormulario.html";
+        } else {
+            Double hipotenusa = numerosService.calculoHipotenusa(cateto1, cateto2);
+            model.addAttribute("x", cateto1);
+            model.addAttribute("y", cateto2);
+            model.addAttribute("hipotenusa", hipotenusa);
+            return "hipotenusa.html";
+        }
+    } */
 
-        Double hipotenusa = numerosService.calculoHipotenusa(cateto1, cateto2);
-        model.addAttribute("x", cateto1);
-        model.addAttribute("y", cateto2);
-        model.addAttribute("hipotenusa", hipotenusa);
-        return "hipotenusa.html";
+    @PostMapping("/postFormHipotenusa")
+    public String postFormHipotenusa(Integer cateto1,Integer cateto2, Model model) {
+
+            Double hipotenusa = numerosService.calculoHipotenusa(cateto1, cateto2);
+            model.addAttribute("x", cateto1);
+            model.addAttribute("y", cateto2);
+            model.addAttribute("hipotenusa", hipotenusa);
+            return "hipotenusa.html";
+
     }
 
     @PostMapping("/postFormDivisores")

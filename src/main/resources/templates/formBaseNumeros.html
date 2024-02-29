@@ -15,7 +15,8 @@
         <form action="#" method="post" th:action="@{/calculosFormulario/postFormPrimo}" th:object="${formInfo}" >
             <div class="form-group">
                 <label>Número</label>
-                <input type="text" class="form-control" th:field="*{number}"><br>
+                <input type="number" class="form-control" th:field="*{number}"><br>
+                <p th:if="${#fields.hasErrors('number')}">IncorrectNumber</p>
             </div>
             <button type="submit" class="btn btn-primary">¿El número es primo?</button>
         </form>

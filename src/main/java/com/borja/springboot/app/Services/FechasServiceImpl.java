@@ -54,13 +54,13 @@ public class FechasServiceImpl implements FechasService {
 
         if (año1 >= año2) {
             for (int i = año2; i <= año1; i++) {
-                if ((i % 4 == 0) && ((i % 100 != 0) || (i % 400 == 0))) {
+                if ((i % 4 == 0) && (((i % 100 != 0) || (i % 400 == 0)) || ((i % 100 == 0) && (i % 400 == 0)))) {
                     añosBisiestos.add(i);
                 }
             }
         } else {
             for (int i = año1; i <= año2; i++) {
-                if ((i % 4 == 0) && ((i % 100 != 0) || (i % 400 == 0))) {
+                if ((i % 4 == 0) && (((i % 100 != 0) || (i % 400 == 0)) || ((i % 100 == 0) && (i % 400 == 0)))) {
                     añosBisiestos.add(i);
                 }
             }
