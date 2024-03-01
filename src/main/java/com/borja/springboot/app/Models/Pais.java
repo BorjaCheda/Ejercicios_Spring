@@ -11,9 +11,7 @@ public class Pais {
     private int poblacion;
 
     public Pais(String nombre, String capital, int poblacion) {
-        this.nombre = nombre;
-        this.capital = capital;
-        this.poblacion = poblacion;
+
     }
 }
 

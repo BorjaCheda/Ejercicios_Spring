@@ -11,7 +11,7 @@ public class NumerosServiceImpl implements NumerosService {
      * @return String
      * <p>
      * Esta clase se encarga de devolver un SI o NO dependiendo si el número introducido es primo o no
-     */
+    **/
     @Override
     public String isPrimo(String numero) {
 

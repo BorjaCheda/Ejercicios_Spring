@@ -5,7 +5,7 @@ import com.borja.springboot.app.Models.Pais;
 import java.util.List;
 
 public interface PaisService {
-    List<String> cargarPaisesDesdeFichero();
+    //List<String> cargarPaisesDesdeFichero();
 
     List<String> getPaises();
 

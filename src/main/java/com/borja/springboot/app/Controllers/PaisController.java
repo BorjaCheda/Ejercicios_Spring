@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PaisController {
     @Autowired
     PaisService paisService;
-
     @GetMapping("/")
     public String mostrarFormulario(Model model) {
-        paisService.cargarPaisesDesdeFichero();
         model.addAttribute("paises", paisService.getPaises());
         return "formularioPaises";
     }
@@ -26,6 +24,7 @@ public class PaisController {
     @PostMapping("/")
     public String mostrarDatosPais(@RequestParam("nombre") String nombre, Model model) {
 
+        model.addAttribute("paises", paisService.getPaises());
         model.addAttribute("pais", paisService.getPais(nombre));
         return "formularioPaises";
     }
